@@ -4,6 +4,12 @@ Class {
 	#category : #FireAutomataModel
 }
 
+{ #category : #accessing }
+FireAutomataCell class >> entityName [
+
+	^ 'Cell'
+]
+
 { #category : #initialization }
 FireAutomataCell >> initializeWithProbability: aNumber [
 	"Probability that a cell is initialized with a tree in it"
@@ -46,7 +52,7 @@ FireAutomataCell >> newState [
 { #category : #pov }
 FireAutomataCell >> pov [
 
-	self subclassResponsibility
+	^ state color
 ]
 
 { #category : #initialization }

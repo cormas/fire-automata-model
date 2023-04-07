@@ -2,9 +2,9 @@ Class {
 	#name : #FireAutomataModel,
 	#superclass : #CMAbstractModel,
 	#instVars : [
-		'cells',
 		'numberOfFires',
-		'percentageOfTrees'
+		'percentageOfTrees',
+		'theCells'
 	],
 	#classInstVars : [
 		'defaultInit'
@@ -110,12 +110,7 @@ FireAutomataModel >> dimensions: arg1 [
 { #category : #init }
 FireAutomataModel >> init53 [
 
-	self
-		createGridLines: 80
-		columns: 80
-		neighbourhood: 4
-		closed: false.
-		
+	self initCommon.
 	self theCells do: [ :cell | cell initializeWithProbability: 0.53 ].
 ]
 
@@ -129,12 +124,7 @@ FireAutomataModel >> init53WithFire [
 { #category : #init }
 FireAutomataModel >> init58 [
 
-	self
-		createGridLines: 80
-		columns: 80
-		neighbourhood: 4
-		closed: false.
-	
+	self initCommon.
 	self theCells do: [ :cell | cell initializeWithProbability: 0.58 ].
 ]
 
@@ -151,6 +141,18 @@ FireAutomataModel >> init58WithMultipleFires [
 	self init58.
 	self theCells do: #init58WithMultipleFires.
 	self numberOfFires timesRepeat: [ self pickCell setOnFire ]
+]
+
+{ #category : #init }
+FireAutomataModel >> initCommon [
+
+	self
+		createGridLines: 80
+		columns: 80
+		neighbourhood: 4
+		closed: false.
+	
+	self displayPov: #pov of: FireAutomataCell. 
 ]
 
 { #category : #probes }
@@ -186,7 +188,7 @@ FireAutomataModel >> numberOfFires: aNumber [
 	numberOfFires := aNumber
 ]
 
-{ #category : #accessing }
+{ #category : #control }
 FireAutomataModel >> step: anObject [
 
 	self stepSynchronously: anObject
@@ -195,11 +197,11 @@ FireAutomataModel >> step: anObject [
 { #category : #accessing }
 FireAutomataModel >> theCells [
 
-	^ cells ifNil: [ cells := OrderedCollection new ]
+	^ theCells ifNil: [ theCells := OrderedCollection new ]
 ]
 
 { #category : #accessing }
 FireAutomataModel >> theCells: anObject [
 
-	cells := anObject
+	theCells := anObject
 ]
