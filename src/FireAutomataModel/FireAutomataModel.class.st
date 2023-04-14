@@ -129,6 +129,21 @@ FireAutomataModel >> init58 [
 ]
 
 { #category : #init }
+FireAutomataModel >> init58WithColumnOfFire [
+
+	| numberOfRows numberOfColumns firstCellInRow |
+	
+	self init58.
+	
+	numberOfRows := self spaceModel line.
+	numberOfColumns := self spaceModel column.
+	
+	1 to: numberOfRows do: [ :rowIndex |
+		firstCellInRow := self theCells at: (rowIndex - 1) * numberOfColumns + 1.
+		firstCellInRow setOnFire ].
+]
+
+{ #category : #init }
 FireAutomataModel >> init58WithFire [
 
 	self init58.
