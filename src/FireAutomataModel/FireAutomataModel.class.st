@@ -46,6 +46,18 @@ FireAutomataModel class >> defaultInit: anObject [
 ]
 
 { #category : #default }
+FireAutomataModel class >> defaultNumberOfColumns [
+
+	^ 100
+]
+
+{ #category : #default }
+FireAutomataModel class >> defaultNumberOfRows [
+
+	^ 100
+]
+
+{ #category : #default }
 FireAutomataModel class >> defaultProbes [
 
 	^ #( #nbTrees )
@@ -130,17 +142,9 @@ FireAutomataModel >> init58 [
 
 { #category : #init }
 FireAutomataModel >> init58WithColumnOfFire [
-
-	| numberOfRows numberOfColumns firstCellInRow |
 	
 	self init58.
-	
-	numberOfRows := self spaceModel line.
-	numberOfColumns := self spaceModel column.
-	
-	1 to: numberOfRows do: [ :rowIndex |
-		firstCellInRow := self theCells at: (rowIndex - 1) * numberOfColumns + 1.
-		firstCellInRow setOnFire ].
+	self setFirstColumnOnFire.
 ]
 
 { #category : #init }
@@ -162,8 +166,8 @@ FireAutomataModel >> init58WithMultipleFires [
 FireAutomataModel >> initCommon [
 
 	self
-		createGridLines: 160
-		columns: 160
+		createGridLines: self class defaultNumberOfRows
+		columns: self class defaultNumberOfColumns
 		neighbourhood: 4
 		closed: false.
 	
@@ -201,6 +205,19 @@ FireAutomataModel >> numberOfFires [
 FireAutomataModel >> numberOfFires: aNumber [
 
 	numberOfFires := aNumber
+]
+
+{ #category : #initialization }
+FireAutomataModel >> setFirstColumnOnFire [
+
+	| numberOfRows numberOfColumns firstCellInRow |
+	
+	numberOfRows := self spaceModel line.
+	numberOfColumns := self spaceModel column.
+	
+	1 to: numberOfRows do: [ :rowIndex |
+		firstCellInRow := self theCells at: (rowIndex - 1) * numberOfColumns + 1.
+		firstCellInRow setOnFire ].
 ]
 
 { #category : #control }
