@@ -1,6 +1,9 @@
 Class {
 	#name : #FireAutomataAshState,
 	#superclass : #FireAutomataCellState,
+	#instVars : [
+		'iterationsToDisappear'
+	],
 	#category : #FireAutomataModel
 }
 
@@ -8,6 +11,13 @@ Class {
 FireAutomataAshState >> color [
 
 	^ Color gray
+]
+
+{ #category : #initialization }
+FireAutomataAshState >> initialize [ 
+
+	super initialize.
+	iterationsToDisappear := 2.
 ]
 
 { #category : #testing }
@@ -19,7 +29,9 @@ FireAutomataAshState >> isAsh [
 { #category : #'instance creation' }
 FireAutomataAshState >> newState [ 
 
-	^ Cormas random < 0.2
+	iterationsToDisappear := iterationsToDisappear - 1.
+
+	^ iterationsToDisappear = 0
 		ifTrue: [ FireAutomataEmptyState forCell: cell ]
 		ifFalse: [ self ]
 ]

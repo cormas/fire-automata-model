@@ -1,6 +1,9 @@
 Class {
 	#name : #FireAutomataFireState,
 	#superclass : #FireAutomataCellState,
+	#instVars : [
+		'iterationsToBurn'
+	],
 	#category : #FireAutomataModel
 }
 
@@ -8,6 +11,13 @@ Class {
 FireAutomataFireState >> color [
 
 	^ Color red
+]
+
+{ #category : #initialization }
+FireAutomataFireState >> initialize [
+
+	super initialize.
+	iterationsToBurn := 3.
 ]
 
 { #category : #testing }
@@ -19,7 +29,9 @@ FireAutomataFireState >> isFire [
 { #category : #'instance creation' }
 FireAutomataFireState >> newState [
 
-	^ Cormas random < 0.05
+	iterationsToBurn := iterationsToBurn - 1.
+
+	^ iterationsToBurn = 0
 		ifTrue: [ FireAutomataAshState forCell: cell ]
 		ifFalse: [ self ]
 ]

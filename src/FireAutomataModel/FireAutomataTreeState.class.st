@@ -19,10 +19,7 @@ FireAutomataTreeState >> isTree [
 { #category : #'instance creation' }
 FireAutomataTreeState >> newState [
 
-	(cell neighbourhood anySatisfy: [ :neighbourCell | neighbourCell state isFire ])
-		ifFalse: [ ^ self ].
-		
-	^ Cormas random < 0.5
+	^ (cell neighbourhood anySatisfy: [ :neighbourCell | neighbourCell state isFire ])
 		ifTrue: [ FireAutomataFireState forCell: cell ]
-		ifFalse: [ self ]
+		ifFalse: [ ^ self ].
 ]
