@@ -7,6 +7,12 @@ Class {
 	#category : #FireAutomataModel
 }
 
+{ #category : #'default values' }
+FireAutomataAshState class >> defaultIterationsToDisappear [
+
+	^ 2
+]
+
 { #category : #accessing }
 FireAutomataAshState >> color [
 
@@ -17,13 +23,19 @@ FireAutomataAshState >> color [
 FireAutomataAshState >> initialize [ 
 
 	super initialize.
-	iterationsToDisappear := 2.
+	iterationsToDisappear := self class defaultIterationsToDisappear.
 ]
 
 { #category : #testing }
 FireAutomataAshState >> isAsh [
 
 	^ true
+]
+
+{ #category : #accessing }
+FireAutomataAshState >> iterationsToDisappear: aNumber [
+	"Set the number of iterations during which the cell should remain in the state of ash. After those iterations, the ash will disappear and the state will be changed"
+	iterationsToDisappear := aNumber
 ]
 
 { #category : #'instance creation' }

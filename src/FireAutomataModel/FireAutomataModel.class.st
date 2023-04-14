@@ -162,8 +162,8 @@ FireAutomataModel >> init58WithMultipleFires [
 FireAutomataModel >> initCommon [
 
 	self
-		createGridLines: 80
-		columns: 80
+		createGridLines: 160
+		columns: 160
 		neighbourhood: 4
 		closed: false.
 	

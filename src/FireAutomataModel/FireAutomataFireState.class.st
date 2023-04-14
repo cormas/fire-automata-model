@@ -7,6 +7,12 @@ Class {
 	#category : #FireAutomataModel
 }
 
+{ #category : #'default values' }
+FireAutomataFireState class >> defaultIterationsToBurn [
+
+	^ 3
+]
+
 { #category : #accessing }
 FireAutomataFireState >> color [
 
@@ -17,13 +23,19 @@ FireAutomataFireState >> color [
 FireAutomataFireState >> initialize [
 
 	super initialize.
-	iterationsToBurn := 3.
+	iterationsToBurn := self class defaultIterationsToBurn.
 ]
 
 { #category : #testing }
 FireAutomataFireState >> isFire [
 
 	^ true
+]
+
+{ #category : #accessing }
+FireAutomataFireState >> iterationsToBurn: aNumber [
+	"Set the number of iterations during which the fire should be burning. After those iterations, the fire will stop and the state will be changed"
+	iterationsToBurn := aNumber
 ]
 
 { #category : #'instance creation' }
