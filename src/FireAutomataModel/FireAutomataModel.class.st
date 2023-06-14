@@ -162,14 +162,14 @@ FireAutomataModel >> init58WithMultipleFires [
 	self numberOfFires timesRepeat: [ self pickCell setOnFire ]
 ]
 
-{ #category : #init }
+{ #category : #initialization }
 FireAutomataModel >> initCommon [
 
 	self
 		createGridLines: self class defaultNumberOfRows
 		columns: self class defaultNumberOfColumns
 		neighbourhood: 4
-		closed: false.
+		closed: true.
 	
 	self displayPov: #pov of: FireAutomataCell. 
 ]
