@@ -23,5 +23,5 @@ BaselineOfFireAutomataModel >> loadCormas: spec [
 
 	spec
 		baseline: 'Cormas'
-		with: [ spec loads: #(Core); repository: 'github://cormas/cormas' ]
+		with: [ spec loads: #(Core); repository: 'github://cormas/cormas:v0.5' ]
 ]
