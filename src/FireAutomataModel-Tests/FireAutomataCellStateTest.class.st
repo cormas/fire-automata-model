@@ -79,6 +79,42 @@ FireAutomataCellStateTest >> testFireTurnsToAsh [
 ]
 
 { #category : #'as yet unclassified' }
+FireAutomataCellStateTest >> testIsAsh [
+
+	self deny: emptyCellState isAsh.
+	self deny: treeCellState isAsh.
+	self deny: fireCellState isAsh.
+	self assert: ashCellState isAsh.
+]
+
+{ #category : #'as yet unclassified' }
+FireAutomataCellStateTest >> testIsEmpty [
+
+	self assert: emptyCellState isEmpty.
+	self deny: treeCellState isEmpty.
+	self deny: fireCellState isEmpty.
+	self deny: ashCellState isEmpty.
+]
+
+{ #category : #'as yet unclassified' }
+FireAutomataCellStateTest >> testIsFire [
+
+	self deny: emptyCellState isFire.
+	self deny: treeCellState isFire.
+	self assert: fireCellState isFire.
+	self deny: ashCellState isFire.
+]
+
+{ #category : #'as yet unclassified' }
+FireAutomataCellStateTest >> testIsTree [
+
+	self deny: emptyCellState isTree.
+	self assert: treeCellState isTree.
+	self deny: fireCellState isTree.
+	self deny: ashCellState isTree.
+]
+
+{ #category : #'as yet unclassified' }
 FireAutomataCellStateTest >> testTreeCellStateColor [
 
 	self assert: treeCellState color equals: Color green.

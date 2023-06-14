@@ -2,8 +2,6 @@ Class {
 	#name : #FireAutomataModel,
 	#superclass : #CMAbstractModel,
 	#instVars : [
-		'numberOfFires',
-		'percentageOfTrees',
 		'theCells'
 	],
 	#classInstVars : [
@@ -60,7 +58,7 @@ FireAutomataModel class >> defaultNumberOfRows [
 { #category : #default }
 FireAutomataModel class >> defaultProbes [
 
-	^ #( #nbTrees )
+	^ #( #numberOfTreeCells )
 ]
 
 { #category : #description }
@@ -108,22 +106,11 @@ FireAutomataModel class >> howToRunIt [
 5.2 Select the init53 and stepAsynchronously: methods, then run the model again.'
 ]
 
-{ #category : #loading }
-FireAutomataModel >> dimensions: arg1 [
-
-	self
-		initializeSpaceModel;
-		createGridLines: arg1 value
-		columns: arg1 key
-		neighbourhood: 4
-		closed: true
-]
-
 { #category : #init }
 FireAutomataModel >> init53 [
 
 	self initCommon.
-	self theCells do: [ :cell | cell initializeWithProbability: 0.53 ].
+	self theCells do: [ :cell | cell generateTreeWithProbability: 0.53 ].
 ]
 
 { #category : #init }
@@ -137,7 +124,7 @@ FireAutomataModel >> init53WithFire [
 FireAutomataModel >> init58 [
 
 	self initCommon.
-	self theCells do: [ :cell | cell initializeWithProbability: 0.58 ].
+	self theCells do: [ :cell | cell generateTreeWithProbability: 0.58 ].
 ]
 
 { #category : #init }
@@ -157,9 +144,13 @@ FireAutomataModel >> init58WithFire [
 { #category : #init }
 FireAutomataModel >> init58WithMultipleFires [
 
+	| numberOfFires |
+	numberOfFires := 3.
+
 	self init58.
 	self theCells do: #init58WithMultipleFires.
-	self numberOfFires timesRepeat: [ self pickCell setOnFire ]
+	
+	numberOfFires timesRepeat: [ self pickCell setOnFire ]
 ]
 
 { #category : #initialization }
@@ -174,37 +165,39 @@ FireAutomataModel >> initCommon [
 	self displayPov: #pov of: FireAutomataCell. 
 ]
 
-{ #category : #probes }
-FireAutomataModel >> nbAshes [
+{ #category : #initialization }
+FireAutomataModel >> initialize [
 
-	<probe>
-	^ self theCells count: [ :cell | cell state isAsh ]
+	super initialize.
+	theCells := OrderedCollection new.
 ]
 
 { #category : #probes }
-FireAutomataModel >> nbFires [
+FireAutomataModel >> numberOfAshCells [
 
 	<probe>
-	^ self theCells count: [ :cell | cell state isFire ]
+	^ self theCells count: [ :cell | cell isAsh ]
 ]
 
 { #category : #probes }
-FireAutomataModel >> nbTrees [
+FireAutomataModel >> numberOfEmptyCells [
 
 	<probe>
-	^ self theCells count: [ :cell | cell state isTree ]
+	^ self theCells count: [ :cell | cell isEmpty ]
 ]
 
-{ #category : #accessing }
-FireAutomataModel >> numberOfFires [
+{ #category : #probes }
+FireAutomataModel >> numberOfFireCells [
 
-	^ numberOfFires ifNil: [ numberOfFires := 3 ]
+	<probe>
+	^ self theCells count: [ :cell | cell isFire ]
 ]
 
-{ #category : #accessing }
-FireAutomataModel >> numberOfFires: aNumber [
+{ #category : #probes }
+FireAutomataModel >> numberOfTreeCells [
 
-	numberOfFires := aNumber
+	<probe>
+	^ self theCells count: [ :cell | cell isTree ]
 ]
 
 { #category : #initialization }
@@ -229,7 +222,7 @@ FireAutomataModel >> step: anObject [
 { #category : #accessing }
 FireAutomataModel >> theCells [
 
-	^ theCells ifNil: [ theCells := OrderedCollection new ]
+	^ theCells
 ]
 
 { #category : #accessing }
