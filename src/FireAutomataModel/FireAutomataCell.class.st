@@ -11,11 +11,17 @@ FireAutomataCell class >> entityName [
 ]
 
 { #category : #initialization }
+FireAutomataCell >> generateTree [
+
+	self state: (FireAutomataTreeState forCell: self)
+]
+
+{ #category : #initialization }
 FireAutomataCell >> generateTreeWithProbability: aNumber [
 	"Probability that a cell is initialized with a tree in it"
 	
 	Cormas random < aNumber
-		ifTrue: [ self state: (FireAutomataTreeState forCell: self) ]
+		ifTrue: [ self generateTree ]
 ]
 
 { #category : #initialization }
@@ -26,25 +32,25 @@ FireAutomataCell >> initialize [
 ]
 
 { #category : #testing }
-FireAutomataCell >> isAsh [
+FireAutomataCell >> isAshCell [
 
 	^ state isAsh
 ]
 
 { #category : #testing }
-FireAutomataCell >> isEmpty [
+FireAutomataCell >> isEmptyCell [
 
 	^ state isEmpty
 ]
 
 { #category : #testing }
-FireAutomataCell >> isFire [
+FireAutomataCell >> isFireCell [
 
 	^ state isFire
 ]
 
 { #category : #testing }
-FireAutomataCell >> isTree [
+FireAutomataCell >> isTreeCell [
 
 	^ state isTree
 ]

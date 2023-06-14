@@ -176,28 +176,28 @@ FireAutomataModel >> initialize [
 FireAutomataModel >> numberOfAshCells [
 
 	<probe>
-	^ self theCells count: [ :cell | cell isAsh ]
+	^ self theCells count: [ :cell | cell isAshCell ]
 ]
 
 { #category : #probes }
 FireAutomataModel >> numberOfEmptyCells [
 
 	<probe>
-	^ self theCells count: [ :cell | cell isEmpty ]
+	^ self theCells count: [ :cell | cell isEmptyCell ]
 ]
 
 { #category : #probes }
 FireAutomataModel >> numberOfFireCells [
 
 	<probe>
-	^ self theCells count: [ :cell | cell isFire ]
+	^ self theCells count: [ :cell | cell isFireCell ]
 ]
 
 { #category : #probes }
 FireAutomataModel >> numberOfTreeCells [
 
 	<probe>
-	^ self theCells count: [ :cell | cell isTree ]
+	^ self theCells count: [ :cell | cell isTreeCell ]
 ]
 
 { #category : #initialization }
