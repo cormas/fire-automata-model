@@ -1,22 +1,23 @@
 Class {
-	#name : #FireAutomataEmptyState,
-	#superclass : #FireAutomataCellState,
-	#category : #'FireAutomata-Model'
+	#name : 'FireAutomataEmptyState',
+	#superclass : 'FireAutomataCellState',
+	#category : 'FireAutomata-Model',
+	#package : 'FireAutomata-Model'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FireAutomataEmptyState >> color [
 
 	^ Color black
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FireAutomataEmptyState >> isEmpty [
 
 	^ true
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 FireAutomataEmptyState >> newState [
 
 	^ self

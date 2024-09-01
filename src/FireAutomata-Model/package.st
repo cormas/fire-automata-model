@@ -1,1 +1,1 @@
-Package { #name : #'FireAutomata-Model' }
+Package { #name : 'FireAutomata-Model' }

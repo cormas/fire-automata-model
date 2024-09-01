@@ -1,44 +1,45 @@
 Class {
-	#name : #FireAutomataFireState,
-	#superclass : #FireAutomataCellState,
+	#name : 'FireAutomataFireState',
+	#superclass : 'FireAutomataCellState',
 	#instVars : [
 		'iterationsToBurn'
 	],
-	#category : #'FireAutomata-Model'
+	#category : 'FireAutomata-Model',
+	#package : 'FireAutomata-Model'
 }
 
-{ #category : #'default values' }
+{ #category : 'default values' }
 FireAutomataFireState class >> defaultIterationsToBurn [
 
 	^ 3
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FireAutomataFireState >> color [
 
 	^ Color red
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 FireAutomataFireState >> initialize [
 
 	super initialize.
 	iterationsToBurn := self class defaultIterationsToBurn.
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FireAutomataFireState >> isFire [
 
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FireAutomataFireState >> iterationsToBurn: aNumber [
 	"Set the number of iterations during which the fire should be burning. After those iterations, the fire will stop and the state will be changed"
 	iterationsToBurn := aNumber
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 FireAutomataFireState >> newState [
 
 	iterationsToBurn := iterationsToBurn - 1.

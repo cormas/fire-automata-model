@@ -1,16 +1,18 @@
 Class {
-	#name : #FireAutomataModel,
-	#superclass : #CMAbstractModel,
+	#name : 'FireAutomataModel',
+	#superclass : 'CMAbstractModel',
 	#instVars : [
 		'theCells'
 	],
 	#classInstVars : [
-		'defaultInit'
+		'defaultNumberOfColumns',
+		'defaultNumberOfRows'
 	],
-	#category : #'FireAutomata-Model'
+	#category : 'FireAutomata-Model',
+	#package : 'FireAutomata-Model'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FireAutomataModel class >> aboutThisModel [
 
 	^ 'This is a simple cellular automata (CA) that simulate the diffusion of fire in a forest.
@@ -25,208 +27,157 @@ For more information, see: http://cormas.cirad.fr/fr/applica/fireautomata.htm
 '
 ]
 
-{ #category : #default }
-FireAutomataModel class >> defaultControl [
-
-	^ #step:
-]
-
-{ #category : #accessing }
-FireAutomataModel class >> defaultInit [
-
-	^ defaultInit ifNil: [ defaultInit := #init58WithFireWithFiremen ]
-]
-
-{ #category : #accessing }
-FireAutomataModel class >> defaultInit: anObject [
-
-	defaultInit := anObject 
-]
-
-{ #category : #default }
+{ #category : 'default' }
 FireAutomataModel class >> defaultNumberOfColumns [
 
-	^ 100
+	^ defaultNumberOfColumns
 ]
 
-{ #category : #default }
+{ #category : 'default' }
+FireAutomataModel class >> defaultNumberOfColumns: aNumber [
+
+	defaultNumberOfColumns := aNumber
+]
+
+{ #category : 'default' }
 FireAutomataModel class >> defaultNumberOfRows [
 
-	^ 100
+	^ defaultNumberOfRows 
 ]
 
-{ #category : #default }
-FireAutomataModel class >> defaultProbes [
+{ #category : 'default' }
+FireAutomataModel class >> defaultNumberOfRows: aNumber [
 
-	^ #( #numberOfTreeCells )
+	defaultNumberOfRows := aNumber
 ]
 
-{ #category : #description }
-FireAutomataModel class >> howToRunIt [
+{ #category : 'initialization' }
+FireAutomataModel class >> initializeParameters [
 
-	^ '1. Prepare the visualisation of the spatial grid. 
-
-1.1 Click on the first icon of the Visualisation area to open the standard spatial grid.
-
-1.2 In the Topology menu, clicking on the Grid size item opens a window allowing you to choose the number of lines and columns. For example, choose 30 * 30.
-
-1.3 Check the border condition: Topology -> Grid boundaries -> closed.
-
-1.4 Right-click within the spatial grid window to select the pov view for FireAutomata_Cell .
-
-1.5 To display the legend of this viewpoint: Tools -> Display legends.
-
-
-2. Prepare the initial spatial grid
-
-2.1 Click on the Initialize button of the Simulation area.
-
-2.2 Select the init53 and stepSynchronously: methods, then validate by clicking on Apply and close.
-
-2.3 From the spatial grid menu, use Tools -> Click to... -> Change attribute... -> state, enter fire and validate. The cursor takes a new shape. Click on a cell to change manually its state to fire, then switch back to the mouse select mode with Tools -> Click to... -> Select 
-
-
-3. Run the model
-
-3.1 Enter 50 in the Final time input field of the Simulation area.
-
-3.2 Click on the Run button of the Simulation area.
-
-
-4. Have a look at the charts
-
-4.1 Click on the third icon of the Visualisation area to open the charts window.
-
-
-
-5. Run alternative versions of the model
-
-5.1 Select the init58 and stepSynchronously: methods, then run the model again.
-
-5.2 Select the init53 and stepAsynchronously: methods, then run the model again.'
+	super initializeParameters.
+	defaultNumberOfColumns := 100.
+	defaultNumberOfRows := 100
 ]
 
-{ #category : #init }
+{ #category : 'init' }
 FireAutomataModel >> init53 [
+	<init>
 
 	self initCommon.
-	self theCells do: [ :cell | cell generateTreeWithProbability: 0.53 ].
+	theCells do: [ :cell | cell generateTreeWithProbability: 0.53 ].
 ]
 
-{ #category : #init }
+{ #category : 'init' }
 FireAutomataModel >> init53WithFire [
+	<init>
 
 	self init53.
-	self pickCell setOnFire
+	self pickRandomCell setOnFire
 ]
 
-{ #category : #init }
+{ #category : 'init' }
 FireAutomataModel >> init58 [
+	<init>
 
 	self initCommon.
-	self theCells do: [ :cell | cell generateTreeWithProbability: 0.58 ].
+	theCells do: [ :cell | cell generateTreeWithProbability: 0.58 ].
 ]
 
-{ #category : #init }
+{ #category : 'init' }
 FireAutomataModel >> init58WithColumnOfFire [
+	<init>
 	
 	self init58.
 	self setFirstColumnOnFire.
 ]
 
-{ #category : #init }
+{ #category : 'init' }
 FireAutomataModel >> init58WithFire [
+	<init>
 
 	self init58.
-	self pickCell setOnFire.
+	self pickRandomCell setOnFire.
 ]
 
-{ #category : #init }
+{ #category : 'init' }
 FireAutomataModel >> init58WithMultipleFires [
+	<init>
 
 	| numberOfFires |
 	numberOfFires := 3.
 
 	self init58.
-	self theCells do: #init58WithMultipleFires.
 	
-	numberOfFires timesRepeat: [ self pickCell setOnFire ]
+	numberOfFires timesRepeat: [ self pickRandomCell setOnFire ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 FireAutomataModel >> initCommon [
 
 	self
-		createGridLines: self class defaultNumberOfRows
-		columns: self class defaultNumberOfColumns
+		createGridNumberOfRows: self class defaultNumberOfRows
+		numberOfColumns: self class defaultNumberOfColumns
 		neighbourhood: 4
-		closed: true.
-	
-	self displayPov: #pov of: FireAutomataCell. 
+		closed: true 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 FireAutomataModel >> initialize [
 
 	super initialize.
 	theCells := OrderedCollection new.
 ]
 
-{ #category : #probes }
+{ #category : 'probes' }
 FireAutomataModel >> numberOfAshCells [
 
-	<probe>
-	^ self theCells count: [ :cell | cell isAshCell ]
+	<probeNamed: 'Number of ash cells' color: '808080'>
+	^ theCells count: [ :cell | cell isAshCell ]
 ]
 
-{ #category : #probes }
+{ #category : 'probes' }
 FireAutomataModel >> numberOfEmptyCells [
 
-	<probe>
-	^ self theCells count: [ :cell | cell isEmptyCell ]
+	<probeNamed: 'Number of empty cells' color: '000000'>
+	^ theCells count: [ :cell | cell isEmptyCell ]
 ]
 
-{ #category : #probes }
+{ #category : 'probes' }
 FireAutomataModel >> numberOfFireCells [
 
-	<probe>
-	^ self theCells count: [ :cell | cell isFireCell ]
+	<probeNamed: 'Number of fire cells' color: 'FF0000'>
+	^ theCells count: [ :cell | cell isFireCell ]
 ]
 
-{ #category : #probes }
+{ #category : 'probes' }
 FireAutomataModel >> numberOfTreeCells [
 
-	<probe>
-	^ self theCells count: [ :cell | cell isTreeCell ]
+	<probeNamed: 'Number of tree cells' color: '00FF00'>
+	^ theCells count: [ :cell | cell isTreeCell ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 FireAutomataModel >> setFirstColumnOnFire [
 
 	| numberOfRows numberOfColumns firstCellInRow |
 	
-	numberOfRows := self spaceModel line.
-	numberOfColumns := self spaceModel column.
+	numberOfRows := self spaceModel numberOfRows.
+	numberOfColumns := self spaceModel numberOfColumns.
 	
 	1 to: numberOfRows do: [ :rowIndex |
 		firstCellInRow := self theCells at: (rowIndex - 1) * numberOfColumns + 1.
 		firstCellInRow setOnFire ].
 ]
 
-{ #category : #control }
+{ #category : 'control' }
 FireAutomataModel >> step: anObject [
-
+	<control>
 	self stepSynchronously: anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FireAutomataModel >> theCells [
-
+	
+	<getterFor: #FireAutomataCell>
 	^ theCells
-]
-
-{ #category : #accessing }
-FireAutomataModel >> theCells: anObject [
-
-	theCells := anObject
 ]

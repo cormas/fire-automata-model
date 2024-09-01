@@ -1,73 +1,68 @@
 Class {
-	#name : #FireAutomataCell,
-	#superclass : #CMSpatialEntityCell,
-	#category : #'FireAutomata-Model'
+	#name : 'FireAutomataCell',
+	#superclass : 'CMSpatialEntityCell',
+	#category : 'FireAutomata-Model',
+	#package : 'FireAutomata-Model'
 }
 
-{ #category : #accessing }
-FireAutomataCell class >> entityName [
-
-	^ 'Cell'
-]
-
-{ #category : #initialization }
+{ #category : 'initialization' }
 FireAutomataCell >> generateTree [
 
 	self state: (FireAutomataTreeState forCell: self)
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 FireAutomataCell >> generateTreeWithProbability: aNumber [
 	"Probability that a cell is initialized with a tree in it"
 	
-	Cormas random < aNumber
+	self random < aNumber
 		ifTrue: [ self generateTree ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 FireAutomataCell >> initialize [ 
 
 	super initialize.
 	self state: (FireAutomataEmptyState forCell: self).
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FireAutomataCell >> isAshCell [
 
 	^ state isAsh
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FireAutomataCell >> isEmptyCell [
 
 	^ state isEmpty
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FireAutomataCell >> isFireCell [
 
 	^ state isFire
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FireAutomataCell >> isTreeCell [
 
 	^ state isTree
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 FireAutomataCell >> newState [
 
 	self bufferState: state newState.
 ]
 
-{ #category : #pov }
+{ #category : 'pov' }
 FireAutomataCell >> pov [
 
 	^ state color
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 FireAutomataCell >> setOnFire [
 
 	self state: (FireAutomataFireState forCell: self)

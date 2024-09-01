@@ -1,16 +1,17 @@
 Class {
-	#name : #FireAutomataCellStateTest,
-	#superclass : #TestCase,
+	#name : 'FireAutomataCellStateTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'emptyCellState',
 		'treeCellState',
 		'fireCellState',
 		'ashCellState'
 	],
-	#category : #'FireAutomata-Model-Tests'
+	#category : 'FireAutomata-Model-Tests',
+	#package : 'FireAutomata-Model-Tests'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 FireAutomataCellStateTest >> setUp [
 
 	super setUp.
@@ -21,13 +22,13 @@ FireAutomataCellStateTest >> setUp [
 	ashCellState := FireAutomataAshState new.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FireAutomataCellStateTest >> testAshCellStateColor [
 
 	self assert: ashCellState color equals: Color gray.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FireAutomataCellStateTest >> testAshTurnsToEmpty [
 
 	| cellState |
@@ -41,13 +42,13 @@ FireAutomataCellStateTest >> testAshTurnsToEmpty [
 	self assert: cellState isEmpty.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FireAutomataCellStateTest >> testEmptyCellStateColor [
 
 	self assert: emptyCellState color equals: Color black.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FireAutomataCellStateTest >> testEmptyRemainsEmpty [
 
 	| cellState |
@@ -58,13 +59,13 @@ FireAutomataCellStateTest >> testEmptyRemainsEmpty [
 		self assert: cellState isEmpty ].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FireAutomataCellStateTest >> testFireCellStateColor [
 
 	self assert: fireCellState color equals: Color red.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FireAutomataCellStateTest >> testFireTurnsToAsh [
 
 	| cellState |
@@ -78,7 +79,7 @@ FireAutomataCellStateTest >> testFireTurnsToAsh [
 	self assert: cellState isAsh.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FireAutomataCellStateTest >> testIsAsh [
 
 	self deny: emptyCellState isAsh.
@@ -87,7 +88,7 @@ FireAutomataCellStateTest >> testIsAsh [
 	self assert: ashCellState isAsh.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FireAutomataCellStateTest >> testIsEmpty [
 
 	self assert: emptyCellState isEmpty.
@@ -96,7 +97,7 @@ FireAutomataCellStateTest >> testIsEmpty [
 	self deny: ashCellState isEmpty.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FireAutomataCellStateTest >> testIsFire [
 
 	self deny: emptyCellState isFire.
@@ -105,7 +106,7 @@ FireAutomataCellStateTest >> testIsFire [
 	self deny: ashCellState isFire.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FireAutomataCellStateTest >> testIsTree [
 
 	self deny: emptyCellState isTree.
@@ -114,7 +115,7 @@ FireAutomataCellStateTest >> testIsTree [
 	self deny: ashCellState isTree.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FireAutomataCellStateTest >> testTreeCellStateColor [
 
 	self assert: treeCellState color equals: Color green.

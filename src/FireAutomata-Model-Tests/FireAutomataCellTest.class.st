@@ -1,33 +1,28 @@
 Class {
-	#name : #FireAutomataCellTest,
-	#superclass : #TestCase,
+	#name : 'FireAutomataCellTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'cell'
 	],
-	#category : #'FireAutomata-Model-Tests'
+	#category : 'FireAutomata-Model-Tests',
+	#package : 'FireAutomata-Model-Tests'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 FireAutomataCellTest >> setUp [ 
 
 	super setUp.
 	cell := FireAutomataCell new.
 ]
 
-{ #category : #tests }
-FireAutomataCellTest >> testEntityName [ 
-
-	self assert: cell class entityName equals: 'Cell'
-]
-
-{ #category : #tests }
+{ #category : 'tests' }
 FireAutomataCellTest >> testGenerateTree [
 
 	cell generateTree.
 	self assert: cell isTreeCell.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FireAutomataCellTest >> testGenerateTreeWithProbability [
 	
 	"With random seed 42 the PMFishmanMooreRandomGenerator generates the following numbers:
@@ -36,7 +31,8 @@ FireAutomataCellTest >> testGenerateTreeWithProbability [
 	This means that if we ask a cell 4 times to generate a tree with probability 0.1,
 	then the first 3 times, nothing will happen. And on the 4th request, the tree will appear."
 	
-	Cormas randomGenerator: (PMFishmanMooreRandomGenerator seed: 42).
+	cell randomNumberGenerator: PMFishmanMooreRandomGenerator new.
+	cell randomSeed: 42.
 	
 	3 timesRepeat: [ 
 		cell generateTreeWithProbability: 0.1.
@@ -46,13 +42,13 @@ FireAutomataCellTest >> testGenerateTreeWithProbability [
 	self assert: cell isTreeCell.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FireAutomataCellTest >> testInitializedEmpty [
 
 	self assert: cell isEmptyCell
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FireAutomataCellTest >> testNewState [
 
 	cell setOnFire.
@@ -67,13 +63,13 @@ FireAutomataCellTest >> testNewState [
 	self assert: cell isAshCell.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FireAutomataCellTest >> testPov [
 
 	self assert: cell pov isColor.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FireAutomataCellTest >> testSetOnFire [
 
 	cell setOnFire.

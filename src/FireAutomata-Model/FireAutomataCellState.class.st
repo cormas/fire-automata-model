@@ -1,13 +1,14 @@
 Class {
-	#name : #FireAutomataCellState,
-	#superclass : #Object,
+	#name : 'FireAutomataCellState',
+	#superclass : 'Object',
 	#instVars : [
 		'cell'
 	],
-	#category : #'FireAutomata-Model'
+	#category : 'FireAutomata-Model',
+	#package : 'FireAutomata-Model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FireAutomataCellState class >> forCell: aCell [
 
 	^ self new
@@ -15,43 +16,43 @@ FireAutomataCellState class >> forCell: aCell [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FireAutomataCellState >> cell: aCell [
 
 	cell := aCell
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FireAutomataCellState >> color [
 
 	self subclassResponsibility
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FireAutomataCellState >> isAsh [
 
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FireAutomataCellState >> isEmpty [
 
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FireAutomataCellState >> isFire [
 
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FireAutomataCellState >> isTree [
 
 	^ false
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 FireAutomataCellState >> newState [
 
 	self subclassResponsibility
