@@ -8,7 +8,7 @@ Class {
 { #category : 'accessing' }
 FireAutomataTreeState >> color [
 
-	^ Color green
+	^ Color fromHexString: '00b44c'
 ]
 
 { #category : 'testing' }

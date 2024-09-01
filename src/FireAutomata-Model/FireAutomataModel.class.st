@@ -152,7 +152,7 @@ FireAutomataModel >> numberOfFireCells [
 { #category : 'probes' }
 FireAutomataModel >> numberOfTreeCells [
 
-	<probeNamed: 'Number of tree cells' color: '00FF00'>
+	<probeNamed: 'Number of tree cells' color: '00b44c'>
 	^ theCells count: [ :cell | cell isTreeCell ]
 ]
 
